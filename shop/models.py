@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
+from ckeditor.fields import RichTextField
 
 class Category(models.Model):
     name = models.CharField('Название', max_length=50)
@@ -8,10 +10,14 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_num_products(self):
+        return self.products.count()
     
     class Meta:
         verbose_name = "Категория"
         verbose_name_plural = 'Категории'
+
 
 class Manufacturer(models.Model):
     name = models.CharField('Название', max_length=60)
@@ -21,6 +27,9 @@ class Manufacturer(models.Model):
     def __str__(self):
         return self.name
 
+    def get_num_products(self):
+        return self.products.count()
+
     class Meta:
         verbose_name = 'Производитель'
         verbose_name_plural = 'Производители'
@@ -28,44 +37,59 @@ class Manufacturer(models.Model):
 
 class Product(models.Model):
     name = models.CharField('Наименование', max_length=200)
-    cost = models.PositiveIntegerField('Стоимость', default=0)
-    description = models.TextField('Описание')
+    slug = models.SlugField('URL', max_length=200, default='')
+    cost = models.PositiveIntegerField('Стоимость (руб.)', default=0)
+    description = models.TextField('Краткое описание товара', blank=True)
+    details = RichTextField('Полное описание товара', default='')
     in_stock = models.BooleanField('Наличие товара')
     quantity = models.PositiveIntegerField('Кол-во в наличии', default=0)
     category = models.ForeignKey(
         Category,
         verbose_name='Категория',
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        related_name='products'
     )
     manufacturer = models.ForeignKey(
         Manufacturer,
         on_delete=models.SET_NULL,
         verbose_name='Производитель',
-        null=True
+        null=True,
+        related_name='products'
     )
     date = models.DateTimeField('Дата поступления на продажу', default=timezone.now)
     orders_count = models.PositiveIntegerField('Кол-во заказов', default=0)
+    on_sale = models.BooleanField('Выставлено на продажу', default=False)
 
     def __str__(self):
         return f'{self.name}'
+    
+    def get_absolute_url(self):
+        return reverse('product_detail', kwargs={'slug': self.slug})
+
+    def get_primary_photo(self):
+        return self.photos.get(primary=True)
+    
+    def get_all_photos(self):
+        return self.photos.all()
+
+    def get_num_reviews(self):
+        return self.review.count()
+        
     
     class Meta:
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
 
 class ProductPhoto(models.Model):
-    title = models.CharField('Название', max_length=50)
     photo = models.ImageField('Изображение', upload_to='shop/')
+    primary = models.BooleanField(default=False)
     product = models.ForeignKey(
         Product,
         verbose_name='Товар',
         on_delete=models.CASCADE,
         related_name='photos'
     )
-
-    def __str__(self):
-        return self.title
 
     class Meta:
         verbose_name = 'Фото товаров'
