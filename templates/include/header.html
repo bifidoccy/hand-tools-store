@@ -1,4 +1,4 @@
-{% load static %}
+{% load i18n static %}
 <header>
     <!-- Header Top Start -->
     <div class="header-top">
@@ -7,7 +7,7 @@
                 <!-- Header Top left Start -->                        
                 <div class="col-lg-4 col-md-12 d-center">
                     <div class="header-top-left">
-                        <img src="{% static 'img/icon/call.png' %}" alt="">Call Us : +11 222 3333
+                        <img src="{% static 'img/icon/call.png' %}" alt="">{% trans "Звони по поводу и без повода" %} : +11 222 3333
                     </div>                        
                 </div>
                 <!-- Header Top left End -->
@@ -15,7 +15,7 @@
                 <div class="col-lg-4 col-md-6 ml-auto mr-auto">
                     <div class="search-box-view">
                         <form action="#">
-                            <input type="text" class="email" placeholder="Search Your Product" name="product">
+                            <input type="text" class="email" placeholder="{% trans 'Поиск товара' %}" name="product">
                             <button type="submit" class="submit"></button>
                         </form>
                     </div>                                           
@@ -26,23 +26,24 @@
                     <div class="header-top-right">
                         <ul class="header-list-menu f-right">
                             <!-- Language Start -->
-                            <li><a href="#">Language: English <i class="fa fa-angle-down"></i></a>
-                                <ul class="ht-dropdown">
-                                    <li><a href="#">Spanish</a></li>
-                                    <li><a href="#">Bengali</a></li>
-                                    <li><a href="#">Russian</a></li>
-                                </ul>
+                            <li>
+                                <form action="{% url 'set_language' %}" method="post">
+                                    {% csrf_token %}
+                                    <select name="language">
+                                        {% get_current_language as LANGUAGE_CODE %}
+                                        {% get_available_languages as LANGUAGES %}
+                                        {% get_language_info_list for LANGUAGES as languages %}
+                                        {% for language in languages %} 
+                                            <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}
+                                                selected {% endif %}>
+                                                {{ language.name_local }} ({{ language.code }})
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    <button class="langbut" type="submit">{% trans "Сохранить" %}</button>
+                                </form>
                             </li>
                             <!-- Language End -->                                
-                            <!-- Currency Start -->
-                            <li><a href="#">Currency:  USD <i class="fa fa-angle-down"></i></a>
-                                <ul class="ht-dropdown">
-                                    <li><a href="#">USD</a></li>
-                                    <li><a href="#">GBP</a></li>
-                                    <li><a href="#">EUR</a></li>
-                                </ul>
-                            </li>
-                            <!-- Currency End -->
                         </ul>
                         <!-- Header-list-menu End -->
                     </div>
@@ -68,9 +69,9 @@
                     <div class="middle-menu pull-right">
                         <nav>
                             <ul class="middle-menu-list">
-                                <li><a href="{% url 'homepage' %}">Главная</a></li>
-                                <li><a href="about.html">О нас</a></li>                                        
-                                <li><a href="{% url 'product_list' %}">Товары<i class="fa fa-angle-down"></i></a>
+                                <li><a href="{% url 'homepage' %}">{% trans "Главная" %}</a></li>
+                                <li><a href="about.html">{% trans "О нас" %}</a></li>                                        
+                                <li><a href="{% url 'product_list' %}">{% trans "Товары" %}<i class="fa fa-angle-down"></i></a>
                                     <!-- Home Version Dropdown Start -->
                                     <ul class="ht-dropdown dropdown-style-two">
                                         <li><a href="shop.html">Shop</a>
@@ -96,7 +97,7 @@
                                     </ul>
                                     <!-- Home Version Dropdown End -->
                                 </li>                                        
-                                <li><a href="blog.html">Новости<i class="fa fa-angle-down"></i></a>
+                                <li><a href="blog.html">{% trans "Новости" %}<i class="fa fa-angle-down"></i></a>
                                     <!-- Home Version Dropdown Start -->
                                     <ul class="ht-dropdown dropdown-style-two">
                                         <li><a href="blog.html">Blog Page</a></li>
@@ -104,7 +105,7 @@
                                     </ul>
                                     <!-- Home Version Dropdown End -->
                                 </li>
-                                <li><a href="contact.html">Связь с нами</a></li>                                        
+                                <li><a href="contact.html">{% trans "Свяжитесь с Нами" %}</a></li>                                        
                             </ul>
                         </nav>
                     </div>
@@ -116,9 +117,9 @@
                         <ul>
                             <li><a href="compare.html"><i class="fa fa-cog"></i></a>
                                 <ul class="ht-dropdown">
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="register.html">Register</a></li>
-                                    <li><a href="account.html">Account</a></li>                                            
+                                    <li><a href="login.html">{% trans "Вход" %}</a></li>
+                                    <li><a href="register.html">{% trans "Регистрация" %}</a></li>
+                                    <li><a href="account.html">{% trans "Мой аккаунт" %}</a></li>                                            
                                 </ul>
                             </li>                                    
                             <li><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
@@ -168,7 +169,7 @@
                     <div class="mobile-menu">
                         <nav>
                             <ul>
-                                <li><a href="index.html">home</a>
+                                <li><a href="index.html">{% trans "Главная" %}</a>
                                     <!-- Home Version Dropdown Start -->
                                     <ul>
                                         <li><a href="index.html">Home Version One</a></li>
@@ -177,7 +178,7 @@
                                     </ul>
                                     <!-- Home Version Dropdown End -->
                                 </li>
-                                <li><a href="shop.html">shop</a>
+                                <li><a href="shop.html">{% trans "Товары" %}</a>
                                     <!-- Mobile Menu Dropdown Start -->
                                     <ul>
                                         <li><a href="product.html">Shop</a>
@@ -202,24 +203,15 @@
                                     </ul>
                                     <!-- Mobile Menu Dropdown End -->
                                 </li>
-                                <li><a href="blog.html">Blog</a>
+                                <li><a href="blog.html">{% trans "Новости" %}</a>
                                     <!-- Mobile Menu Dropdown Start -->
                                     <ul>
                                         <li><a href="blog-details.html">Blog Details Page</a></li>
                                     </ul>
                                     <!-- Mobile Menu Dropdown End -->
                                 </li>
-                                <li><a href="#">pages</a>
-                                    <!-- Mobile Menu Dropdown Start -->
-                                    <ul>
-                                        <li><a href="login.html">login Page</a></li>
-                                        <li><a href="register.html">Register Page</a></li>
-                                        <li><a href="404.html">404 Page</a></li>
-                                    </ul>
-                                    <!-- Mobile Menu Dropdown End -->
-                                </li>
-                                <li><a href="about.html">about us</a></li>
-                                <li><a href="contact.html">contact us</a></li>
+                                <li><a href="about.html">{% trans "О нас" %}</a></li>
+                                <li><a href="contact.html">{% trans "Свяжитесь с Нами" %}</a></li>
                             </ul>
                         </nav>
                     </div>

@@ -1,0 +1,131 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-04-28 19:23+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\templates\include\footer.html:11
+msgid "Подпишитесь на рассылку новостей"
+msgstr "Subscribe to the newsletter"
+
+#: .\templates\include\footer.html:12
+msgid ""
+"Получайте по электронной почте обновления о нашем последнем магазине и "
+"специальных предложениях"
+msgstr ""
+
+#: .\templates\include\footer.html:18
+msgid "Подписаться"
+msgstr "Subscribe"
+
+#: .\templates\include\footer.html:28
+msgid "Связь с нами"
+msgstr "Contact Us"
+
+#: .\templates\include\footer.html:33
+msgid "Телефон"
+msgstr "Phone"
+
+#: .\templates\include\header.html:10
+msgid "Звони по поводу и без повода"
+msgstr "Call with or without reason"
+
+#: .\templates\include\header.html:18
+msgid "Поиск товара"
+msgstr "Product search"
+
+#: .\templates\include\header.html:43
+msgid "Сохранить"
+msgstr "Save"
+
+#: .\templates\include\header.html:72 .\templates\include\header.html:172
+msgid "Главная"
+msgstr "Home"
+
+#: .\templates\include\header.html:73 .\templates\include\header.html:213
+msgid "О Нас"
+msgstr "About Us"
+
+#: .\templates\include\header.html:74 .\templates\include\header.html:181
+msgid "Товары"
+msgstr "Shop"
+
+#: .\templates\include\header.html:100 .\templates\include\header.html:206
+msgid "Новости"
+msgstr "Blog"
+
+#: .\templates\include\header.html:108 .\templates\include\header.html:214
+msgid "Свяжитесь с Нами"
+msgstr "Contact Us"
+
+#: .\templates\include\header.html:120
+msgid "Вход"
+msgstr "Sign In"
+
+#: .\templates\include\header.html:121
+msgid "Регистрация"
+msgstr "Sign Up"
+
+#: .\templates\include\header.html:122
+msgid "Мой аккаунт"
+msgstr "My Account"
+
+#: .\templates\shop\home.html:51
+msgid "Лучшие из лучших"
+msgstr "The best of the best"
+
+#: .\templates\shop\home.html:347
+msgid "Новые поступления"
+msgstr "New Arrivals"
+
+#: .\templates\shop\home.html:348
+msgid "Скидки"
+msgstr "Discounts"
+
+#: .\templates\shop\home.html:779
+msgid "Бесплатная доставка"
+msgstr "Free shipping"
+
+#: .\templates\shop\home.html:780
+msgid "Бесплатная доставка на любой заказ"
+msgstr "Free shipping on any order"
+
+#: .\templates\shop\home.html:792
+msgid "Онлайн поддержка 24/7"
+msgstr "Online support 24/7"
+
+#: .\templates\shop\home.html:793
+msgid "Мы доступны 24/7"
+msgstr "We are available 24/7"
+
+#: .\templates\shop\home.html:805
+msgid "Возврат средств"
+msgstr "Money Return"
+
+#: .\templates\shop\home.html:806
+msgid "Гарантия 7 дней"
+msgstr "Back guarantee under 7 days"
+
+#: .\templates\shop\home.html:819
+msgid "Их покупают все!"
+msgstr "Best Seller Products"
+
+#: .\templates\shop\home.html:1073
+#, fuzzy
+#| msgid "Новости"
+msgid "Из новостей"
+msgstr "From The Blog"

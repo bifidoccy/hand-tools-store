@@ -15,3 +15,4 @@ class ProductListView(ListView):
 
 class ProductDetailView(DetailView):
     model = Product
+

@@ -1,6 +1,19 @@
+from django import forms
 from django.contrib import admin
-from .models import *
 from django.utils.safestring import mark_safe
+from modeltranslation.admin import TranslationAdmin
+from ckeditor.widgets import CKEditorWidget
+
+from .models import *
+
+class ProductAdminForm(forms.ModelForm):
+    """ details ckeditor """
+    details_ru = forms.CharField(label='Details (ru)', widget=CKEditorWidget())
+    details_en = forms.CharField(label='Details (en)', widget=CKEditorWidget())
+ 
+    class Meta:
+        model = Product
+        fields = '__all__'
 
 class ProductPhotoInline(admin.TabularInline):
     model = ProductPhoto
@@ -17,14 +30,14 @@ class ReviewInline(admin.TabularInline):
     pass
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TranslationAdmin):
     list_display = ('id', 'name', 'slug')
     list_display_links = ('name',)
     prepopulated_fields = {'slug': ('name', )}
     search_fields = ('name',)
 
 @admin.register(Manufacturer)
-class ManufacturerAdmin(admin.ModelAdmin):
+class ManufacturerAdmin(TranslationAdmin):
     list_display = ('id', 'name', 'slug')
     list_display_links = ('name',)
     prepopulated_fields = {'slug': ('name', )}
@@ -32,7 +45,7 @@ class ManufacturerAdmin(admin.ModelAdmin):
 
 
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(TranslationAdmin):
     list_display = ('name', 'category', 'in_stock', 'cost', 'orders_count', 'on_sale', 'slug')
     list_display_links = ('name', )
     list_filter = ('category', 'manufacturer', 'in_stock',)
@@ -43,6 +56,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_editable = ('on_sale',)
     save_on_top = True
     inlines = [ProductPhotoInline]
+    form = ProductAdminForm
 
     def unpublish(self, request, queryset):
         """ Снять с продажи """

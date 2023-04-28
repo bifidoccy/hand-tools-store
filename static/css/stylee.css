@@ -288,6 +288,11 @@ input#newsletter-permission {
 .header-list-menu > li:last-child a{
     padding-right: 0;
 }
+
+.langbut {
+    border: #ffffff;
+}
+
 .header-list-menu > li:hover > a,
 .header-list-menu > li > ul.ht-dropdown > li:hover a,
 .megamenu-three-column > ul > li ul > li:hover > a,
