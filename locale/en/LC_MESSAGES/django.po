@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-28 19:23+0300\n"
+"POT-Creation-Date: 2023-04-28 23:00+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,7 +57,7 @@ msgid "Главная"
 msgstr "Home"
 
 #: .\templates\include\header.html:73 .\templates\include\header.html:213
-msgid "О Нас"
+msgid "О нас"
 msgstr "About Us"
 
 #: .\templates\include\header.html:74 .\templates\include\header.html:181
@@ -129,3 +129,6 @@ msgstr "Best Seller Products"
 #| msgid "Новости"
 msgid "Из новостей"
 msgstr "From The Blog"
+
+#~ msgid "О Нас"
+#~ msgstr "About Us"
