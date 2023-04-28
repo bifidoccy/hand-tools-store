@@ -17,7 +17,7 @@ urlpatterns += i18n_patterns(
     path('', include('shop.urls')),
 )
 
-handler404 = 'conf.views.NotFoundPageView'
+handler404 = 'conf.views.not_found_page'
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
