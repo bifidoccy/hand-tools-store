@@ -27,28 +27,37 @@
                     <!-- Sidebar Shopping Option Start -->
                     <div class="col-lg-3  order-2">
                         <div class="sidebar white-bg">
-                            <div class="single-sidebar">
-                                <div class="group-title">
-                                    <h2>categories</h2>
+                            <form action="{% url 'json-filter' %}" method="get" name="filter">
+                                <div class="single-sidebar">
+                                    <div class="group-title">
+                                        <h2>categories</h2>
+                                    </div>
+                                    {% get_categories as categories %}
+                                    <ul>
+                                        {% for cat in categories %}
+                                            <li>
+                                                <input type="checkbox" name="cat" value="{{ cat.id }}">
+                                                <a>{{ cat.name }} ({{ cat.get_num_products }})</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
                                 </div>
-                                {% get_categories as categories %}
-                                <ul>
-                                    {% for cat in categories %}
-                                        <li><a href="#">{{ cat.name }} ({{ cat.get_num_products }})</a></li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                            <div class="single-sidebar">
-                                <div class="group-title">
-                                    <h2>manufacturer</h2>
+                                <div class="single-sidebar">
+                                    <div class="group-title">
+                                        <h2>manufacturer</h2>
+                                    </div>
+                                    {% get_manufacturers as manufacturers %}
+                                    <ul class="manufactures-list">
+                                        {% for man in manufacturers %}
+                                            <li>
+                                                <input type="checkbox" name="mfact" value="{{ man.id }}">
+                                                <a href="#">{{ man.name }} ({{ man.get_num_products }})</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
                                 </div>
-                                {% get_manufacturers as manufacturers %}
-                                <ul class="manufactures-list">
-                                    {% for man in manufacturers %}
-                                        <li><a href="#">{{ man.name }} ({{ man.get_num_products }})</a></li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
+                                <button type="submit">Фильтр</button>
+                            </form>
                             <!-- Single Banner Start -->
                             <div class="single-sidebar single-banner zoom pt-20">
                                 <a href="#" class="hidden-sm"><img src="img/banner/8.jpg" alt="slider-banner"></a>
