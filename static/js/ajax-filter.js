@@ -18,9 +18,10 @@ forms.addEventListener('submit', function (e) {
     // Получаем данные из формы
     e.preventDefault(); // убираем настройки по умолчанию
     let url = this.action;
-    let params = new URLSearchParams(new FormData(this)).toString(); // сюда поступают данные с формы (года и жанры)
+    let params = new URLSearchParams(new FormData(this)).toString(); // сюда поступают данные с формы
     ajaxSend(url, params);
 });
+
 
 function render(data) {
     // Рендер шаблона

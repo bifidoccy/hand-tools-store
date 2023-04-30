@@ -55,6 +55,7 @@ class ProductAdmin(TranslationAdmin):
     readonly_fields = ('orders_count', )
     list_editable = ('on_sale',)
     save_on_top = True
+    save_as = True
     inlines = [ProductPhotoInline]
     form = ProductAdminForm
 

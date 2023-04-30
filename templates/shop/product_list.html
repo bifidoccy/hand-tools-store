@@ -27,7 +27,7 @@
                     <!-- Sidebar Shopping Option Start -->
                     <div class="col-lg-3  order-2">
                         <div class="sidebar white-bg">
-                            <form action="{% url 'json-filter' %}" method="get" name="filter">
+                            <form action="{% url 'filter' %}" method="get">
                                 <div class="single-sidebar">
                                     <div class="group-title">
                                         <h2>categories</h2>
@@ -80,14 +80,22 @@
                             </div>
                             <!-- Toolbar Short Area Start -->
                             <div class="main-toolbar-sorter f-right">
-                                <div class="toolbar-sorter">
-                                    <label>sort by</label>
-                                    <select class="sorter" name="sorter">
-                                        <option value="Product Name">Product Name</option>
-                                        <option value="Price">Price</option>
-                                    </select>
-                                    <span><a href="#"><i class="fa fa-arrow-up"></i></a></span>
-                                </div>
+                                <form action="{% url 'sort' %}" method="get">
+                                    <div class="toolbar-sorter">
+                                        <label>sort by</label>
+                                        {% for m in mfact %}
+                                            <input type="hidden" name="mfact" value="{{ m }}">
+                                        {% endfor %}
+                                        {% for c in cat %}
+                                            <input type="hidden" name="cat" value="{{ c }}">
+                                        {% endfor %}
+                                        <select class="sorter" name="sort">
+                                            <option value="expen" {% if sort == 'expen' %} selected {% endif %}>Expencive first</option>
+                                            <option value="cheap" {% if sort == 'cheap' %} selected {% endif %}>Cheap first</option>
+                                        </select>
+                                        <button class="langbut" type="submit"><span><a href=""><i class="fa fa-arrow-up"></i></a></span></button>
+                                    </div> 
+                                </form>
                             </div>
                             <!-- Toolbar Short Area End -->
                         </div>
