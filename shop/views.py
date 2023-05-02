@@ -8,15 +8,17 @@ from django.core.paginator import Paginator
 from .models import Product, Category
 
 class HomeView(View):
-    
+    """ Main page """
     def get(self, request):
         return render(request, 'shop/home.html', context={})
 
 class ProductListView(ListView):
+    """ Products List """
     model = Product
     paginate_by = 4
 
     def get_queryset(self):
+        """ Getting params """
         sort = self.request.GET.get('sort', 'none')
         cat = self.request.GET.getlist('cat')
         mfact = self.request.GET.getlist('mfact')
@@ -32,6 +34,8 @@ class ProductListView(ListView):
             queryset = queryset.order_by('-cost')
         elif sort == 'cheap':
             queryset = queryset.order_by('cost')
+        
+        """ Create paginator object as p """
         self.p = self.get_paginator(queryset, self.paginate_by)
         return queryset
     
@@ -41,6 +45,7 @@ class ProductListView(ListView):
         page_object = self.p.get_page(page_number)
         paginate = self.paginate_by
 
+        """ num1 and num2 are variables in '.list-inline nav' in product_list.html """
         num1 = 1
         num2 = len(page_object.object_list)
         for i in range(int(page_number)-1):
@@ -52,6 +57,8 @@ class ProductListView(ListView):
                 num2 += paginate
 
         context = super().get_context_data()
+
+        """ Sending params in template """
         context['mfact'] = ''.join([f'mfact={x}&' for x in self.request.GET.getlist('mfact')])
         context['cat'] = ''.join([f'cat={x}&' for x in self.request.GET.getlist('cat')])
         context['sort'] = f'sort={sort}&'
@@ -60,16 +67,8 @@ class ProductListView(ListView):
         return context
 
 class ProductDetailView(DetailView):
+    """ Product """
     model = Product
-
-def list_products(request):
-    product_list = Product.objects.all()
-
-    p = Paginator(product_list, 2)
-    page = request.GET.get('page')
-    products = p.get_page(page)
-
-    return render(request, 'shop/product_list.html', context={'product_list': products})
 
 # class AjaxFilterProductsView(ListView):
     
