@@ -41,20 +41,20 @@ class ProductListView(ListView):
     
     def get_context_data(self):
         sort = self.request.GET.get('sort', 'none')
+        view = self.request.GET.get('view', 'list')
         page_number = self.request.GET.get('page', 1)
         page_object = self.p.get_page(page_number)
-        paginate = self.paginate_by
 
         """ num1 and num2 are variables in '.list-inline nav' in product_list.html """
         num1 = 1
         num2 = len(page_object.object_list)
         for i in range(int(page_number)-1):
             if page_object.has_next() == False:
-                num1 += paginate
+                num1 += self.paginate_by
             else:
                 num1 += len(page_object.object_list)
             if num2 + len(page_object.object_list) <= self.p.count:
-                num2 += paginate
+                num2 += self.paginate_by
 
         context = super().get_context_data()
 
@@ -62,6 +62,7 @@ class ProductListView(ListView):
         context['mfact'] = ''.join([f'mfact={x}&' for x in self.request.GET.getlist('mfact')])
         context['cat'] = ''.join([f'cat={x}&' for x in self.request.GET.getlist('cat')])
         context['sort'] = f'sort={sort}&'
+        context['view'] = f'view={view}&'
         context['num1'] = num1
         context['num2'] = num2
         return context

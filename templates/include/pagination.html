@@ -1,23 +1,23 @@
 <ul class="blog-pagination ">
     {% if page_obj.has_previous %}
         {% if page_obj.previous_page_number != 1 %}
-            <li><a href="?{{ cat }}{{ mfact }}{{ sort }}page=1">1</a></li>
+            <li><a href="?{{ cat }}{{ mfact }}{{ sort }}{{ view }}page=1">1</a></li>
         {% endif %}
         {% if page_obj.number|add:"-3" >= 1 %}
-            <li><a href="?{{ cat }}{{ mfact }}{{ sort }}page={{ page_obj.number|add:'-2' }}" class="fa fa-angle-left"></a></li>
+            <li><a href="?{{ cat }}{{ mfact }}{{ sort }}{{ view }}page={{ page_obj.number|add:'-2' }}" class="fa fa-angle-left"></a></li>
         {% endif %}
-        <li><a href="?{{ cat }}{{ mfact }}{{ sort }}page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
+        <li><a href="?{{ cat }}{{ mfact }}{{ sort }}{{ view }}page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
     {% endif %}
 
     <li class="active"><a>{{ page_obj.number }}</a></li>
 
     {% if page_obj.has_next %}
-        <li><a href="?{{ cat }}{{ mfact }}{{ sort }}page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
+        <li><a href="?{{ cat }}{{ mfact }}{{ sort }}{{ view }}page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
         {% if page_obj.number|add:"3" <= page_obj.paginator.num_pages %}
-            <li><a href="?{{ cat }}{{ mfact }}{{ sort }}page={{ page_obj.number|add:'2' }}" class="fa fa-angle-right"></a></li>
+            <li><a href="?{{ cat }}{{ mfact }}{{ sort }}{{ view }}page={{ page_obj.number|add:'2' }}" class="fa fa-angle-right"></a></li>
         {% endif %}
         {% if page_obj.next_page_number != page_obj.paginator.num_pages %}
-            <li><a href="?{{ cat }}{{ mfact }}{{ sort }}page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a></li>
+            <li><a href="?{{ cat }}{{ mfact }}{{ sort }}{{ view }}page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a></li>
         {% endif %}
     {% endif %}
 </ul>

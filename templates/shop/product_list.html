@@ -73,8 +73,8 @@
                         <div class="grid-list-top border-default universal-padding fix mb-30">
                             <div class="grid-list-view f-left">
                                 <ul class="list-inline nav">
-                                    <li><a data-toggle="tab" href="#grid-view"><i class="fa fa-th"></i></a></li>
-                                    <li><a  class="active" data-toggle="tab" href="#list-view"><i class="fa fa-list-ul"></i></a></li>
+                                    <li><a id="grid" class="{% if view == "view=grid&" %}active{% endif %}" href="?{{ cat }}{{ mfact }}{{ sort }}view=grid"><i class="fa fa-th"></i></a></li>
+                                    <li><a id="list" class="{% if view == "view=list&" %}active{% endif %}" href="?{{ cat }}{{ mfact }}{{ sort }}view=list"><i class="fa fa-list-ul"></i></a></li>
                                     <li>
                                         <span class="grid-item-list">
                                             {% if page_obj.has_next == False and page_obj.object_list|length == 1 %}
@@ -102,79 +102,82 @@
                         <div class="main-categorie">
                             <!-- Grid & List Main Area End -->
                             <div class="tab-content fix">
-                                <div id="grid-view" class="tab-pane ">
-                                    <div class="row">
-                                        {% for product in product_list %}             
-                                            <div class="col-lg-4 col-sm-6">
-                                                <div class="single-product">
-                                                    <!-- Product Image Start -->
-                                                    <div class="pro-img">
-                                                        <a href="{{ product.get_absolute_url }}">
-                                                            <img class="primary-img" src="{{ product.get_primary_photo.photo.url }}" alt="single-product" width="270px" height="210px">
-                                                        </a>
-                                                    </div>
-                                                    <!-- Product Image End -->
-                                                    <!-- Product Content Start -->
-                                                    <div class="pro-content">
-                                                        <div class="product-rating">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </div>                                
-                                                        <h4><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h4>
-                                                        <p><span class="price">{{ product.cost }} руб.</span><del class="prev-price"></del></p>
-                                                        <div class="pro-actions">
-                                                            <div class="actions-secondary">
-                                                                <a href="wishlist.html" data-toggle="tooltip" title="Add to Wishlist"><i class="fa fa-heart"></i></a>
-                                                                <a class="add-cart" href="cart.html" data-toggle="tooltip" title="Add to Cart">Add To Cart</a>
-                                                                <a href="compare.html" data-toggle="tooltip" title="Add to Compare"><i class="fa fa-signal"></i></a>
+                                {% if view == "view=grid&" %}
+                                    <div id="grid-view" class="tab-pane active ">
+                                        <div class="row">
+                                            {% for product in product_list %}             
+                                                <div class="col-lg-4 col-sm-6">
+                                                    <div class="single-product">
+                                                        <!-- Product Image Start -->
+                                                        <div class="pro-img">
+                                                            <a href="{{ product.get_absolute_url }}">
+                                                                <img class="primary-img" src="{{ product.get_primary_photo.photo.url }}" alt="single-product" width="270px" height="210px">
+                                                            </a>
+                                                        </div>
+                                                        <!-- Product Image End -->
+                                                        <!-- Product Content Start -->
+                                                        <div class="pro-content">
+                                                            <div class="product-rating">
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                            </div>                                
+                                                            <h4><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h4>
+                                                            <p><span class="price">{{ product.cost }} руб.</span><del class="prev-price"></del></p>
+                                                            <div class="pro-actions">
+                                                                <div class="actions-secondary">
+                                                                    <a href="wishlist.html" data-toggle="tooltip" title="Add to Wishlist"><i class="fa fa-heart"></i></a>
+                                                                    <a class="add-cart" href="cart.html" data-toggle="tooltip" title="Add to Cart">Add To Cart</a>
+                                                                    <a href="compare.html" data-toggle="tooltip" title="Add to Compare"><i class="fa fa-signal"></i></a>
+                                                                </div>
                                                             </div>
                                                         </div>
+                                                        <!-- Product Content End -->
                                                     </div>
-                                                    <!-- Product Content End -->
                                                 </div>
-                                            </div>
-                                        {% endfor %}    
-                                    </div>                                    
-                                </div>
+                                            {% endfor %}    
+                                        </div>                                    
+                                    </div>
+                                {% else %}
                                 <!-- #grid view End -->
-                                <div id="list-view" class="tab-pane active">
-                                    <!-- Single Product Start -->
-                                    {% for product in product_list %}
-                                        <div class="single-product">
-                                            <!-- Product Image Start -->
-                                            <div class="pro-img">
-                                                <a href="{{ product.get_absolute_url }}">
-                                                    <img class="primary-img" src="{{ product.get_primary_photo.photo.url }}" alt="single-product" width="270px" height="210px">
-                                                </a>
-                                            </div>
-                                            <!-- Product Image End -->
-                                            <!-- Product Content Start -->
-                                            <div class="pro-content">
-                                                <div class="product-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>                                
-                                                <h4><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h4>
-                                                <p><span class="price">{{ product.cost }} руб.</span><del class="prev-price"></del></p>
-                                                <p>{{ product.description|slice:":100" }}</p>
-                                                <div class="pro-actions">
-                                                    <div class="actions-secondary">
-                                                        <a href="wishlist.html" data-toggle="tooltip" title="Add to Wishlist"><i class="fa fa-heart"></i></a>
-                                                        <a class="add-cart" href="cart.html" data-toggle="tooltip" title="Add to Cart">Add To Cart</a>
-                                                        <a href="compare.html" data-toggle="tooltip" title="Add to Compare"><i class="fa fa-signal"></i></a>
+                                    <div id="list-view" class="tab-pane active">
+                                        <!-- Single Product Start -->
+                                        {% for product in product_list %}
+                                            <div class="single-product">
+                                                <!-- Product Image Start -->
+                                                <div class="pro-img">
+                                                    <a href="{{ product.get_absolute_url }}">
+                                                        <img class="primary-img" src="{{ product.get_primary_photo.photo.url }}" alt="single-product" width="270px" height="210px">
+                                                    </a>
+                                                </div>
+                                                <!-- Product Image End -->
+                                                <!-- Product Content Start -->
+                                                <div class="pro-content">
+                                                    <div class="product-rating">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                    </div>                                
+                                                    <h4><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h4>
+                                                    <p><span class="price">{{ product.cost }} руб.</span><del class="prev-price"></del></p>
+                                                    <p>{{ product.description|slice:":100" }}</p>
+                                                    <div class="pro-actions">
+                                                        <div class="actions-secondary">
+                                                            <a href="wishlist.html" data-toggle="tooltip" title="Add to Wishlist"><i class="fa fa-heart"></i></a>
+                                                            <a class="add-cart" href="cart.html" data-toggle="tooltip" title="Add to Cart">Add To Cart</a>
+                                                            <a href="compare.html" data-toggle="tooltip" title="Add to Compare"><i class="fa fa-signal"></i></a>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <!-- Product Content End -->
                                             </div>
-                                            <!-- Product Content End -->
-                                        </div>
-                                    {% endfor %}                    
-                                </div>
+                                        {% endfor %}                    
+                                    </div>
+                                {% endif %}
                                 <!-- #list view End -->
                             </div>
                             <!-- Grid & List Main Area End -->
