@@ -12,15 +12,15 @@ function ajaxSend(url, params) {
 }
 
 // Filter movies
-const forms = document.querySelector('form[name=filter]');
+// const forms = document.querySelector('form[name=filter]');
 
-forms.addEventListener('submit', function (e) {
-    // Получаем данные из формы
-    e.preventDefault(); // убираем настройки по умолчанию
-    let url = this.action;
-    let params = new URLSearchParams(new FormData(this)).toString(); // сюда поступают данные с формы
-    ajaxSend(url, params);
-});
+// forms.addEventListener('submit', function (e) {
+//     // Получаем данные из формы
+//     e.preventDefault(); // убираем настройки по умолчанию
+//     let url = this.action;
+//     let params = new URLSearchParams(new FormData(this)).toString(); // сюда поступают данные с формы
+//     ajaxSend(url, params);
+// });
 
 
 function render(data) {
